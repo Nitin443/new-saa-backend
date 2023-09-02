@@ -11,20 +11,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const reply_1 = require("../../objects/reply");
+const http_status_codes_1 = require("http-status-codes");
 class authContoller {
 }
 _a = authContoller;
 authContoller.userSignup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const reply = new reply_1.CallbackReply();
     try {
+        reply.Data = [
+            {
+                msg: "OK data ...",
+            },
+        ];
+        reply.ErrorCode = reply_1.ErrorCodes.SUCCESS;
+        res.status(http_status_codes_1.StatusCodes.OK).send(reply);
+        return;
     }
     catch (error) {
         if (error instanceof reply_1.CallbackReply) {
-            res.status(StatusCodes.OK).send(error);
+            res.status(http_status_codes_1.StatusCodes.OK).send(error);
             return;
         }
         reply.AddErrors(error.message);
-        res.status(StatusCodes.OK).send(reply);
+        res.status(http_status_codes_1.StatusCodes.OK).send(reply);
         return;
     }
 });
